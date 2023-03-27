@@ -1,12 +1,14 @@
 package io.github.dougllasfps.vendasapi.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +31,9 @@ public class Produto {
     @Column
     private String sku;
 
+    @Column(name = "data_cadastro")
+    private LocalDate dataCadastro;
+
     public Produto() {
         super();
     }
@@ -41,11 +46,25 @@ public class Produto {
         this.sku = sku;
     }
 
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.sku = sku;
+    }
+
+    @PrePersist
+    public void PrePersist() {
+        setDataCadastro(LocalDate.now());
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -53,7 +72,7 @@ public class Produto {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(final String nome) {
         this.nome = nome;
     }
 
@@ -61,7 +80,7 @@ public class Produto {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(final String descricao) {
         this.descricao = descricao;
     }
 
@@ -69,7 +88,7 @@ public class Produto {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(final BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -77,8 +96,16 @@ public class Produto {
         return sku;
     }
 
-    public void setSku(String sku) {
+    public void setSku(final String sku) {
         this.sku = sku;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     @Override
@@ -86,5 +113,4 @@ public class Produto {
         return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + ", sku=" + sku
                 + "]";
     }
-
 }
