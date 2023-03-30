@@ -1,15 +1,14 @@
 package io.github.dougllasfps.vendasapi.rest.produtos;
 
 import io.github.dougllasfps.vendasapi.model.Produto;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import io.github.dougllasfps.vendasapi.model.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +62,17 @@ public class ProdutoController {
         entidade.setId(id);
         repository.save(entidade);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        Optional<Produto> prdoutoExistente = repository.findById(id);
+
+        if(prdoutoExistente.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        repository.delete(prdoutoExistente.get());
         return ResponseEntity.ok().build();
     }
 }

@@ -2,9 +2,7 @@ package io.github.dougllasfps.vendasapi.rest.produtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.github.dougllasfps.vendasapi.model.Produto;
 
 public class ProdutoFormRequest {
@@ -18,11 +16,12 @@ public class ProdutoFormRequest {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate cadastro;
 
-    public ProdutoFormRequest(){
+    public ProdutoFormRequest() {
         super();
     }
 
-    public ProdutoFormRequest(Long id, String descricao, String nome, BigDecimal preco, String sku, LocalDate cadastro) {
+    public ProdutoFormRequest(Long id, String descricao, String nome, BigDecimal preco, String sku,
+            LocalDate cadastro) {
         super();
         this.id = id;
         this.descricao = descricao;
@@ -57,6 +56,10 @@ public class ProdutoFormRequest {
     public String getNome() {
         return nome;
     }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public LocalDate getCadastro() {
         return cadastro;
@@ -66,9 +69,6 @@ public class ProdutoFormRequest {
         this.cadastro = cadastro;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public BigDecimal getPreco() {
         return preco;
@@ -98,7 +98,7 @@ public class ProdutoFormRequest {
         return cadastro;
     }
 
-    public void setDataCadastro(LocalDate cadastro){
+    public void setDataCadastro(LocalDate cadastro) {
         this.cadastro = cadastro;
     }
 
